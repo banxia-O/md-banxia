@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>半夏笔记</title>
+
+  <!-- Docsify 主题（可换：vue / dark / buble / pure）-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- Waline 评论样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+
+  <style>
+    /* ===== 自定义样式：文艺/博客风格 ===== */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap');
+
+    :root {
+      --theme-color: #7c3aed;   /* 主色：紫，改这里换整站颜色 */
+      --accent:      #06b6d4;   /* 辅色：青 */
+      --bg:          #f8f8fc;
+      --text:        #1a1a2e;
+      --text-muted:  #6b7280;
+      --surface:     #ffffff;
+      --border:      rgba(0,0,0,0.07);
+    }
+
+    /* 背景 */
+    body {
+      background:
+        radial-gradient(ellipse at 70% 0%, rgba(124,58,237,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 80%, rgba(6,182,212,0.05) 0%, transparent 50%),
+        var(--bg);
+      font-family: 'Noto Sans SC', 'PingFang SC', sans-serif;
+      color: var(--text);
+    }
+
+    /* 侧边栏 */
+    .sidebar {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-right: 1px solid var(--border);
+    }
+
+    @supports not (backdrop-filter: blur(1px)) {
+      .sidebar { background: rgba(255,255,255,0.95); }
+    }
+
+    .sidebar-nav a {
+      color: var(--text-muted);
+      transition: color 0.2s, padding-left 0.2s;
+    }
+
+    .sidebar-nav a:hover,
+    .sidebar-nav a.active {
+      color: var(--theme-color);
+      padding-left: 4px;
+    }
+
+    /* 标题字体 */
+    h1, h2, h3 {
+      font-family: 'Noto Serif SC', serif;
+      letter-spacing: 0.05em;
+    }
+
+    h1 { font-weight: 900; }
+    h2 { 
+      font-weight: 700;
+      border-bottom: 2px solid var(--theme-color);
+      padding-bottom: 6px;
+    }
+
+    /* 内容区 */
+    .content {
+      max-width: 860px;
+    }
+
+    /* 正文 */
+    .markdown-section p {
+      line-height: 1.9;
+      font-weight: 300;
+    }
+
+    /* 代码块 */
+    .markdown-section code {
+      background: rgba(124,58,237,0.08);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 0.9em;
+      color: var(--theme-color);
+    }
+
+    /* 链接 */
+    .markdown-section a {
+      color: var(--theme-color);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(124,58,237,0.3);
+      transition: border-color 0.2s;
+    }
+
+    .markdown-section a:hover {
+      border-color: var(--theme-color);
+    }
+
+    /* 引用块 */
+    .markdown-section blockquote {
+      border-left: 4px solid var(--theme-color);
+      background: rgba(124,58,237,0.05);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 20px;
+      color: var(--text-muted);
+    }
+
+    /* 搜索框 */
+    .search input {
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search input:focus {
+      border-color: rgba(124,58,237,0.5);
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+      outline: none;
+    }
+
+    /* 滚动条美化 */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(124,58,237,0.3);
+      border-radius: 9999px;
+    }
+
+    /* Waline 评论区样式 */
+    #waline {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .wl-editor:focus {
+      border-color: rgba(124,58,237,0.5) !important;
+      box-shadow: 0 0 0 3px rgba(124,58,237,0.12) !important;
+    }
+    .wl-btn.primary {
+      background: var(--theme-color) !important;
+      border-color: var(--theme-color) !important;
+    }
+
+    /* 动效无障碍 */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">加载中...</div>
+
+  <script>
+    window.$docsify = {
+      name: '半夏笔记',           // 左上角站点名，改这里
+      nameLink: '/',
+      repo: '',                    // 填 github 地址会显示右上角按钮，不填留空
+      loadSidebar: true,           // 启用侧边栏（需要 _sidebar.md 文件）
+      loadNavbar: false,           // 顶部导航，暂时关闭
+      coverpage: false,            // 封面页，暂时关闭
+      autoHeader: true,
+      maxLevel: 3,                 // 侧边栏展示到 h3
+      subMaxLevel: 2,
+      auto2top: true,              // 切换页面自动回到顶部
+      search: {
+        placeholder: '搜索笔记...',
+        noData: '没找到',
+        depth: 3,
+      },
+      pagination: {
+        previousText: '上一篇',
+        nextText: '下一篇',
+        crossChapter: true,
+      },
+      count: {
+        countable: true,
+        position: 'top',
+        margin: '10px',
+        float: 'right',
+        language: 'chinese',
+        localization: {
+          words: '',
+        },
+        isExpected: true,
+      }
+    }
+  </script>
+
+  <!-- Docsify 核心 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  <!-- 搜索插件 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.min.js"></script>
+  <!-- 代码高亮 -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <!-- 字数统计 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-count@latest/dist/countable.min.js"></script>
+  <!-- 翻页插件 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+
+  <!-- Waline 评论 JS (UMD 构建，暴露 Waline 全局变量) -->
+  <script src="https://unpkg.com/@waline/client@v3/dist/waline.umd.js"></script>
+  <script>
+    window.$docsify.plugins = (window.$docsify.plugins || []).filter(Boolean).concat(
+      function(hook) {
+        hook.afterEach(function(html) {
+          return html + '<div id="waline"></div>';
+        });
+        hook.doneEach(function() {
+          if (typeof Waline !== 'undefined') {
+            Waline.init({
+              el: '#waline',
+              serverURL: 'https://md-banxia.cn',
+              path: window.location.hash.slice(1) || '/',
+              lang: 'zh-CN',
+              meta: ['nick', 'mail'],
+              requiredMeta: ['nick'],
+              login: 'disable',
+              placeholder: '欢迎指正错误或分享最新指南更新 🩺',
+              emoji: false,
+              pageSize: 10,
+            });
+          }
+        });
+      }
+    );
+  </script>
+
+  <!-- PDF 下载条：MutationObserver 监听 DOM 变化 -->
+  <script>
+    function injectPdfBar() {
+      if (document.getElementById('pdf-bar')) return;
+      var hash = window.location.hash || '';
+      var path = decodeURIComponent(hash.replace(/^#\//, '') || '');
+      if (!path || path === '/' || path.indexOf('notes/') !== 0) return;
+      var pdfPath = path.replace(/^notes\//, 'pdf/').replace(/\.md$/, '') + '.pdf';
+      var walineEl = document.getElementById('waline');
+      if (!walineEl || !walineEl.parentNode) return;
+      var div = document.createElement('div');
+      div.id = 'pdf-bar';
+      div.style.cssText = 'margin:32px 0 8px;padding:16px 20px;background:linear-gradient(135deg,rgba(124,58,237,0.06),rgba(6,182,212,0.04));border:1px solid rgba(124,58,237,0.12);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px';
+      div.innerHTML = '<span style="font-size:14px;color:#6b7280">📄 本笔记配套 <strong style="color:#7c3aed">PDF 文件</strong></span><a href="' + pdfPath + '" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:#7c3aed;color:#fff;border-radius:8px;font-size:14px;text-decoration:none">⬇ 下载 PDF</a>';
+      walineEl.parentNode.insertBefore(div, walineEl);
+    }
+    // MutationObserver：不断监视 DOM 变化
+    var observer = new MutationObserver(function() { injectPdfBar(); });
+    observer.observe(document.body || document.documentElement, { childList: true, subtree: true });
+    // hash 变化时也重新注入
+    window.addEventListener('hashchange', function() {
+      var old = document.getElementById('pdf-bar');
+      if (old) old.remove();
+      setTimeout(injectPdfBar, 200);
+    });
+  </script>
+
+</body>
+</html>
